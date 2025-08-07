@@ -113,17 +113,36 @@ export const RosterView: React.FC<RosterViewProps> = ({
   }, [doctors]);
 
   const handleReassignConfirm = async () => {
-    if (!reassignModal.shift || !reassignModal.selectedDoctorId) return;
+    if (!reassignModal.shift || !reassignModal.selectedDoctorId) {
+      console.error('Missing shift or doctor selection', reassignModal);
+      return;
+    }
     
     const newDoctor = doctors.find(d => d.id === reassignModal.selectedDoctorId);
-    if (!newDoctor) return;
+    if (!newDoctor) {
+      console.error('Doctor not found:', reassignModal.selectedDoctorId);
+      return;
+    }
     
     try {
+      // Handle empty/vacant shifts properly
+      const currentDoctor = reassignModal.shift.doctorName || 'VACANT';
+      
+      console.log('Reassigning shift:', {
+        date: reassignModal.shift.date,
+        shiftName: reassignModal.shift.shiftName,
+        currentDoctor: currentDoctor,
+        newDoctor: newDoctor.name
+      });
+      
+      // Remove "Dr." prefix from doctor name to match roster format
+      const newDoctorName = newDoctor.name.replace(/^Dr\.\s*/, '').toUpperCase();
+      
       await onShiftReassign(
         reassignModal.shift.date,
         reassignModal.shift.shiftName,
-        reassignModal.shift.doctorName,
-        newDoctor.name
+        currentDoctor,
+        newDoctorName
       );
       
       setReassignModal({
@@ -134,6 +153,7 @@ export const RosterView: React.FC<RosterViewProps> = ({
       });
     } catch (error) {
       console.error('Failed to reassign shift:', error);
+      alert(`Failed to reassign shift: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 

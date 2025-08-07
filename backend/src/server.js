@@ -1363,7 +1363,10 @@ app.put('/api/roster/:jobId/shifts/reassign', (req, res) => {
     const { jobId } = req.params;
     const { date, shiftName, currentDoctor, newDoctor } = req.body;
     
+    console.log('Reassignment request received:', { jobId, date, shiftName, currentDoctor, newDoctor });
+    
     if (!activeJobs.has(jobId)) {
+      console.error('Job not found:', jobId);
       return res.status(404).json({
         success: false,
         error: 'Roster job not found'
@@ -1384,10 +1387,14 @@ app.put('/api/roster/:jobId/shifts/reassign', (req, res) => {
       const headers = calendarLines[0].split(',').map(h => h.trim().replace(/"/g, ''));
       const shiftIndex = headers.findIndex(h => h === shiftName);
       
+      console.log('Headers found:', headers);
+      console.log('Looking for shift:', shiftName, 'at index:', shiftIndex);
+      
       if (shiftIndex === -1) {
+        console.error('Shift not found in headers. Available shifts:', headers);
         return res.status(400).json({
           success: false,
-          error: 'Shift not found'
+          error: `Shift '${shiftName}' not found. Available shifts: ${headers.slice(1).join(', ')}`
         });
       }
       
@@ -1820,7 +1827,8 @@ app.get('/api/roster/:jobId/export/pdf/:format?', async (req, res) => {
     let filename;
     
     if (format === 'all') {
-      pdfBuffer = await generateCompletePDFWithJsPDF(job);
+      // Use the new enhanced PDF generation with Puppeteer for better formatting
+      pdfBuffer = await generateEnhancedPDF(job);
       filename = `peninsula_health_complete_roster_${job.startDate}_${timestamp}.pdf`;
     } else if (format === 'distribution') {
       pdfBuffer = await generateDistributionPDF(job);
@@ -1836,9 +1844,13 @@ app.get('/api/roster/:jobId/export/pdf/:format?', async (req, res) => {
       });
     }
     
+    // Ensure the buffer is sent correctly as binary data
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-    res.send(pdfBuffer);
+    res.setHeader('Content-Length', pdfBuffer.length);
+    
+    // Use res.end() with buffer to ensure binary response
+    res.end(pdfBuffer, 'binary');
     
   } catch (error) {
     console.error('Error exporting PDF:', error);
@@ -2323,8 +2335,11 @@ async function generateEnhancedPDF(job) {
     
     await browser.close();
     
-    console.log('Enhanced PDF generated successfully, size:', pdfBuffer.length);
-    return pdfBuffer;
+    // Ensure we return a proper Buffer
+    const buffer = Buffer.from(pdfBuffer);
+    console.log('Enhanced PDF generated successfully, size:', buffer.length);
+    console.log('Buffer type:', typeof buffer, 'Is Buffer:', Buffer.isBuffer(buffer));
+    return buffer;
     
   } catch (error) {
     console.error('Error generating enhanced PDF:', error);
@@ -2460,24 +2475,72 @@ function generateEnhancedRosterHTML(job) {
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         border-radius: 6px;
         overflow: hidden;
+        table-layout: fixed;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      
+      thead {
+        display: table-header-group;
       }
       
       th {
         background: #17a2b8;
         color: white;
         font-weight: 600;
-        padding: 10px 8px;
-        text-align: left;
-        font-size: 12px;
-        letter-spacing: 0.3px;
+        padding: 8px 6px;
+        text-align: center;
+        font-size: 10px;
+        letter-spacing: 0.2px;
         position: sticky;
         top: 0;
+        word-wrap: break-word;
+        word-break: break-word;
+        hyphens: auto;
+        vertical-align: middle;
+        line-height: 1.2;
+        min-width: 65px;
+        max-width: 120px;
+      }
+      
+      th:first-child {
+        min-width: 80px;
+        max-width: 100px;
+        text-align: left;
+        padding-left: 10px;
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: #138496;
+      }
+      
+      /* Specific column widths for shift locations */
+      th:not(:first-child) {
+        width: 8%;
       }
       
       td {
-        padding: 8px;
+        padding: 6px 4px;
         border-bottom: 1px solid #e9ecef;
         background: white;
+        text-align: center;
+        font-size: 9px;
+        word-wrap: break-word;
+        word-break: break-word;
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      td:first-child {
+        text-align: left;
+        padding-left: 10px;
+        font-weight: 500;
+        position: sticky;
+        left: 0;
+        background: #f8f9fa;
+        z-index: 1;
+        border-right: 1px solid #dee2e6;
       }
       
       tr:nth-child(even) td {
@@ -2571,12 +2634,49 @@ function generateEnhancedRosterHTML(job) {
       }
       
       @media print {
+        thead {
+          display: table-header-group;
+        }
+        
+        tbody {
+          display: table-row-group;
+        }
+        
+        tfoot {
+          display: table-footer-group;
+        }
+        
+        tr {
+          page-break-inside: avoid;
+        }
+        
+        th {
+          background: #17a2b8 !important;
+          color: white !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        
         .section {
           page-break-inside: avoid;
         }
         
         .header-section {
           page-break-after: avoid;
+        }
+        
+        table {
+          font-size: 9px;
+        }
+        
+        th {
+          font-size: 9px;
+          padding: 6px 4px;
+        }
+        
+        td {
+          font-size: 8px;
+          padding: 4px 3px;
         }
       }
     </style>
@@ -2653,12 +2753,21 @@ function generateTableHTML(lines, type = 'default') {
   const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
   const rows = lines.slice(1);
   
-  let tableHTML = '<table>';
+  // Wrap table in a div for better control
+  let tableHTML = '<div style="overflow-x: auto; width: 100%;"><table>';
   
-  // Generate headers
+  // Generate headers with better formatting
   tableHTML += '<thead><tr>';
-  headers.forEach(header => {
-    tableHTML += `<th>${header}</th>`;
+  headers.forEach((header, index) => {
+    // Format location headers for better readability
+    let formattedHeader = header
+      .replace(/_/g, ' ')  // Replace underscores with spaces
+      .replace(/Frankston /g, 'F. ')  // Abbreviate Frankston
+      .replace(/Rosebud /g, 'R. ')    // Abbreviate Rosebud
+      .trim();
+    
+    // Add title attribute for full text on hover
+    tableHTML += `<th title="${header}">${formattedHeader}</th>`;
   });
   tableHTML += '</tr></thead>';
   
@@ -2680,7 +2789,7 @@ function generateTableHTML(lines, type = 'default') {
     tableHTML += '</tr>';
   });
   tableHTML += '</tbody>';
-  tableHTML += '</table>';
+  tableHTML += '</table></div>';
   
   return tableHTML;
 }
