@@ -1,0 +1,136 @@
+/* Logo Component Styles */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.logoContainer:hover {
+  opacity: 0.9;
+}
+
+.logoImage {
+  display: block;
+  object-fit: contain;
+  max-width: 100%;
+  height: auto;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.appName {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-navy-blue);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.byLine {
+  font-size: 0.9rem;
+  color: var(--color-primary-teal);
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Size variants */
+.logoSmall .logoImage {
+  height: 32px;
+  width: auto;
+}
+
+.logoSmall .appName {
+  font-size: 1.2rem;
+}
+
+.logoSmall .byLine {
+  font-size: 0.75rem;
+}
+
+.logoMedium .logoImage {
+  height: 48px;
+  width: auto;
+}
+
+.logoMedium .appName {
+  font-size: 1.8rem;
+}
+
+.logoMedium .byLine {
+  font-size: 0.9rem;
+}
+
+.logoLarge .logoImage {
+  height: 64px;
+  width: auto;
+}
+
+.logoLarge .appName {
+  font-size: 2.2rem;
+}
+
+.logoLarge .byLine {
+  font-size: 1rem;
+}
+
+.logoExtralarge .logoImage {
+  height: 80px;
+  width: auto;
+}
+
+.logoExtralarge .appName {
+  font-size: 2.5rem;
+}
+
+.logoExtralarge .byLine {
+  font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .logoContainer {
+    gap: 8px;
+  }
+  
+  .logoMedium .logoImage {
+    height: 40px;
+  }
+  
+  .logoMedium .appName {
+    font-size: 1.5rem;
+  }
+  
+  .logoMedium .byLine {
+    font-size: 0.8rem;
+  }
+  
+  .logoLarge .logoImage {
+    height: 52px;
+  }
+  
+  .logoLarge .appName {
+    font-size: 1.8rem;
+  }
+  
+  .logoLarge .byLine {
+    font-size: 0.9rem;
+  }
+}
+
+/* Logo-only variant (no text) */
+.logoContainer:not(.showText) {
+  justify-content: center;
+}
+
+.logoContainer:not(.showText) .logoText {
+  display: none;
+}

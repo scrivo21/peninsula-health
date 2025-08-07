@@ -1,0 +1,444 @@
+/* Footer Container */
+.footer {
+  background: linear-gradient(135deg, #002E5D 0%, #00A8A8 100%);
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Quote Section */
+.quoteSection {
+  flex: 1;
+}
+
+.quoteHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.quoteIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.quoteLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.refreshButton {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  margin-left: auto;
+}
+
+.refreshButton:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+}
+
+.refreshButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.quoteContent {
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Loading State */
+.loadingState {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+}
+
+.loadingDots {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.loadingDots span {
+  width: 6px;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: loadingPulse 1.4s infinite ease-in-out both;
+}
+
+.loadingDots span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loadingDots span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes loadingPulse {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Quote Text */
+.quoteText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  line-height: 1.5;
+}
+
+.mainText {
+  font-size: 1rem;
+  color: white;
+  font-weight: 400;
+}
+
+.authorText {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Footer Info */
+.footerInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.8125rem;
+}
+
+.appInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.appName {
+  font-weight: 700;
+  color: white;
+}
+
+.hospitalName {
+  font-weight: 600;
+}
+
+.yearText {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.separator {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+.footerLinks {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footerLink {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 0.875rem;
+  padding: 0.25rem 0;
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.footerLink:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer {
+    padding: 0.875rem 0;
+  }
+  
+  .footerContent {
+    padding: 0 1.5rem;
+    gap: 0.875rem;
+  }
+  
+  .quoteHeader {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  
+  .quoteLabel {
+    font-size: 0.8125rem;
+  }
+  
+  .refreshButton {
+    order: 1;
+    margin-left: 0;
+  }
+  
+  .mainText {
+    font-size: 0.9375rem;
+  }
+  
+  .authorText {
+    font-size: 0.8125rem;
+  }
+  
+  .footerInfo {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .appInfo,
+  .footerLinks {
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footerContent {
+    padding: 0 1rem;
+  }
+  
+  .quoteHeader {
+    gap: 0.5rem;
+  }
+  
+  .quoteIcon {
+    font-size: 1.125rem;
+  }
+  
+  .quoteLabel {
+    font-size: 0.75rem;
+  }
+  
+  .refreshButton {
+    padding: 0.1875rem 0.375rem;
+    font-size: 0.8125rem;
+  }
+  
+  .mainText {
+    font-size: 0.875rem;
+  }
+  
+  .authorText {
+    font-size: 0.75rem;
+  }
+  
+  .footerInfo {
+    font-size: 0.8125rem;
+  }
+  
+  .appInfo,
+  .footerLinks {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Animation for quote changes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quoteText {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Special styling for different quote types */
+.quoteText .mainText {
+  position: relative;
+}
+
+/* Add subtle glow effect for inspiration quotes */
+.footer:has(.quoteLabel:contains("Healthcare Inspiration")) .mainText {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Add pulse effect for emergency medicine tips */
+.footer:has(.quoteLabel:contains("Emergency Medicine")) .quoteIcon {
+  animation: emergencyPulse 2s infinite;
+}
+
+@keyframes emergencyPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Enhanced Footer Navigation */
+.footerNav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin: 1rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navSection h4 {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navLink {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  padding: 0.25rem 0;
+}
+
+.navLink:hover {
+  color: white;
+  text-decoration: underline;
+  transform: translateX(4px);
+}
+
+.logoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tagline {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  margin: 0;
+  font-style: italic;
+}
+
+.sectionTitle {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.contactIcon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.footerBottom {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Footer Links Updates */
+.footerLink {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.footerLink:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* Responsive Design for Enhanced Footer */
+@media (max-width: 1024px) {
+  .footerNav {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .footerNav {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .footerContent {
+    padding: 0 1rem;
+  }
+  
+  .footerInfo {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}

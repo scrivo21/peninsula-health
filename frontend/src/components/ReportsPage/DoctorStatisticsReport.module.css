@@ -1,0 +1,487 @@
+/* Doctor Statistics Report Styles */
+.statisticsContainer {
+  padding: 2rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Report Header */
+.reportHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.headerLeft h2 {
+  margin: 0 0 0.5rem 0;
+  color: #002E5D;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.reportDescription {
+  color: #666;
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* No Data Container */
+.noDataContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 500px;
+}
+
+.noDataIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.noDataContainer h3 {
+  color: #002E5D;
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.noDataContainer p {
+  color: #666;
+  margin: 0 0 2rem 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.generateButton {
+  background: linear-gradient(135deg, #00A8A8, #007B7B);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.generateButton:hover {
+  background: linear-gradient(135deg, #007B7B, #005555);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 168, 168, 0.3);
+}
+
+.headerControls {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.controlGroup label {
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.select {
+  padding: 0.5rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  font-size: 0.9rem;
+  min-width: 140px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #00A8A8;
+}
+
+.sortOrderButton {
+  background: #00A8A8;
+  color: white;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.sortOrderButton:hover {
+  background: #008080;
+  transform: translateY(-1px);
+}
+
+/* Team Overview */
+.teamOverview {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  margin: 0 0 1.5rem 0;
+  color: #002E5D;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.overviewCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.overviewCard {
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid #f0f0f0;
+  transition: transform 0.2s ease;
+}
+
+.overviewCard:hover {
+  transform: translateY(-2px);
+}
+
+.cardIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.cardContent h4 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #002E5D;
+  line-height: 1.2;
+}
+
+.cardContent p {
+  margin: 0.25rem 0 0 0;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Statistics Table */
+.statisticsTable {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #e9ecef;
+  margin-bottom: 2rem;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.table th {
+  background: linear-gradient(135deg, #002E5D, #003366);
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+}
+
+.table th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.table th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.tableRow {
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.tableRow:hover {
+  background: #e3f2fd;
+}
+
+.table td {
+  padding: 1rem;
+  border: none;
+  vertical-align: middle;
+}
+
+/* Doctor Cell */
+.doctorCell {
+  min-width: 200px;
+}
+
+.doctorInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.doctorAvatar {
+  font-size: 1.5rem;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f8ff;
+  border-radius: 50%;
+  border: 2px solid #00A8A8;
+}
+
+.doctorName {
+  font-weight: 600;
+  color: #002E5D;
+}
+
+/* Badges and Indicators */
+.eftBadge {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.shiftCount {
+  font-weight: 600;
+  color: #002E5D;
+  font-size: 1rem;
+}
+
+.undesirableBadge,
+.fairnessBadge {
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 30px;
+  text-align: center;
+}
+
+.statusIndicator {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Utilization Bar */
+.utilizationCell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 120px;
+}
+
+.utilizationBar {
+  position: relative;
+  width: 80px;
+  height: 20px;
+  background: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.utilizationFill {
+  height: 100%;
+  background: inherit;
+  border-radius: 10px;
+  transition: width 0.8s ease;
+  opacity: 0.8;
+}
+
+.utilizationText {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #333;
+  min-width: 45px;
+}
+
+/* Insights Section */
+.insights {
+  background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #cce7ff;
+}
+
+.insightsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.insightCard {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e9ecef;
+  transition: transform 0.2s ease;
+}
+
+.insightCard:hover {
+  transform: translateY(-1px);
+}
+
+.insightIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.insightContent h4 {
+  margin: 0 0 0.5rem 0;
+  color: #002E5D;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.insightContent p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Loading State */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  height: 400px;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #00A8A8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .overviewCards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .reportHeader {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .headerControls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .overviewCards {
+    grid-template-columns: 1fr;
+  }
+
+  .statisticsContainer {
+    padding: 1rem;
+  }
+
+  .table {
+    font-size: 0.8rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.5rem;
+  }
+
+  .doctorInfo {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .utilizationCell {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .insightCard {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerControls {
+    gap: 0.5rem;
+  }
+
+  .controlGroup {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .controlGroup label {
+    min-width: 60px;
+  }
+
+  .select {
+    min-width: 100px;
+  }
+}

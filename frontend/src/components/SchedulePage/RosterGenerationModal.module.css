@@ -1,0 +1,220 @@
+@import '../../styles/variables.css';
+
+/* Modal Specific */
+.generationModal {
+  max-width: 600px;
+  width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form Layout */
+.generationForm {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.formSection {
+  padding: var(--spacing-6);
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+/* Date Section */
+.dateSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4);
+}
+
+.datePreview {
+  background: linear-gradient(135deg, #e8f5e8 0%, #f0f9f0 100%);
+  border: 2px solid #4caf50;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  text-align: center;
+  margin-bottom: var(--spacing-2);
+}
+
+.previewLabel {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-success);
+  margin-bottom: var(--spacing-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.previewRange {
+  display: block;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-1);
+}
+
+.previewDuration {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* Hospital Selection */
+.hospitalSelection {
+  display: flex;
+  gap: var(--spacing-4);
+  padding: var(--spacing-3);
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-border-light);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.checkboxLabel:hover {
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.checkboxText {
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+}
+
+/* Doctor List */
+.doctorList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-height: 200px;
+  overflow-y: auto;
+  padding: var(--spacing-3);
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-subtle);
+}
+
+.doctorCheckbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  padding: var(--spacing-2);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.doctorCheckbox:hover {
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.doctorName {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.doctorEft {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+}
+
+/* Modal Actions */
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+  padding: var(--spacing-6);
+  border-top: 1px solid var(--color-border-light);
+  background: var(--color-bg-subtle);
+}
+
+.modalActions button {
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+/* Loading Spinner */
+.loadingSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .generationModal {
+    width: 95vw;
+    max-height: 95vh;
+  }
+  
+  .dateSection {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-3);
+  }
+  
+  .hospitalSelection {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .formSection {
+    padding: var(--spacing-4);
+    gap: var(--spacing-4);
+  }
+  
+  .modalActions {
+    padding: var(--spacing-4);
+    flex-direction: column;
+  }
+  
+  .modalActions button {
+    width: 100%;
+  }
+  
+  .doctorList {
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .previewRange {
+    font-size: var(--font-size-base);
+  }
+  
+  .checkboxLabel {
+    padding: var(--spacing-1) var(--spacing-2);
+  }
+  
+  .doctorCheckbox {
+    padding: var(--spacing-1);
+  }
+}

@@ -1,0 +1,340 @@
+/* JSON Editor Styles */
+.jsonEditor {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background: white;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+/* Editor Header */
+.editorHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.editorInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.itemCount {
+  color: #6c757d;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.unsavedIndicator {
+  color: #fd7e14;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.editorControls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Control Buttons */
+.addButton,
+.formatButton,
+.editButton,
+.saveButton,
+.cancelButton {
+  padding: 6px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  background: white;
+  color: #495057;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.addButton:hover,
+.formatButton:hover,
+.editButton:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.saveButton {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  border-color: #28a745;
+}
+
+.saveButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #218838, #1e7e34);
+  transform: translateY(-1px);
+}
+
+.saveButton:disabled {
+  background: #6c757d;
+  border-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.cancelButton {
+  background: #6c757d;
+  color: white;
+  border-color: #6c757d;
+}
+
+.cancelButton:hover {
+  background: #5a6268;
+  border-color: #545b62;
+}
+
+.editActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Validation Errors */
+.validationErrors {
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, #fff5f5, #fed7d7);
+  border-bottom: 1px solid #feb2b2;
+}
+
+.errorsTitle {
+  margin: 0 0 0.75rem 0;
+  color: #c53030;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.errorsList {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #c53030;
+}
+
+.errorItem {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.errorItem:last-child {
+  margin-bottom: 0;
+}
+
+.errorItem strong {
+  color: #a02622;
+}
+
+/* Editor Container */
+.editorContainer {
+  position: relative;
+}
+
+.jsonTextarea {
+  width: 100%;
+  min-height: 400px;
+  max-height: 600px;
+  padding: 1.25rem;
+  border: none;
+  background: white;
+  color: #212529;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  tab-size: 2;
+}
+
+.jsonTextarea:disabled {
+  background: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+.jsonTextarea.hasErrors {
+  background: linear-gradient(135deg, #fff9f9, #ffeaea);
+}
+
+.jsonTextarea:focus {
+  box-shadow: inset 0 0 0 2px rgba(0, 168, 168, 0.2);
+}
+
+/* Scrollbar styling for webkit browsers */
+.jsonTextarea::-webkit-scrollbar {
+  width: 12px;
+}
+
+.jsonTextarea::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+.jsonTextarea::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 6px;
+}
+
+.jsonTextarea::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Editor Footer */
+.editorFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  font-size: 0.85rem;
+}
+
+.editorStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.statusValid {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.statusError {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+.editorHints {
+  display: flex;
+  align-items: center;
+}
+
+.hint {
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .editorHeader {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .editorInfo {
+    justify-content: center;
+  }
+  
+  .editorControls {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .jsonTextarea {
+    font-size: 13px;
+    min-height: 300px;
+  }
+  
+  .editorFooter {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .editorHeader {
+    padding: 0.75rem 1rem;
+  }
+  
+  .validationErrors {
+    padding: 0.75rem 1rem;
+  }
+  
+  .jsonTextarea {
+    padding: 1rem;
+    font-size: 12px;
+    min-height: 250px;
+  }
+  
+  .editorFooter {
+    padding: 0.5rem 1rem;
+  }
+  
+  .addButton,
+  .formatButton,
+  .editButton,
+  .saveButton,
+  .cancelButton {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Syntax highlighting hints */
+.jsonTextarea {
+  /* Basic syntax highlighting could be added with a library like CodeMirror */
+  /* For now, using a monospace font for better readability */
+}
+
+/* Loading states */
+.editorContainer.loading {
+  position: relative;
+  opacity: 0.6;
+}
+
+.editorContainer.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+/* Accessibility improvements */
+.addButton:focus,
+.formatButton:focus,
+.editButton:focus,
+.saveButton:focus,
+.cancelButton:focus,
+.jsonTextarea:focus {
+  outline: 2px solid #00A8A8;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .jsonEditor {
+    border: 2px solid #000;
+  }
+  
+  .editorHeader,
+  .editorFooter {
+    border-bottom: 2px solid #000;
+    border-top: 2px solid #000;
+  }
+  
+  .validationErrors {
+    border-bottom: 2px solid #000;
+  }
+}

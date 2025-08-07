@@ -1,0 +1,330 @@
+.analyticsView {
+  padding: 2rem;
+  height: 100%;
+  overflow-y: auto;
+  background: #ffffff;
+}
+
+.header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.shiftTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 1rem 0;
+}
+
+.headerBadges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.badge.leadership {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge.clinical {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.badge.difficulty {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.basicInfo {
+  margin-bottom: 2rem;
+}
+
+.infoCard {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.cardTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 1rem 0;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.value {
+  font-size: 1rem;
+  color: #111827;
+  font-weight: 400;
+}
+
+.description {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.descriptionText {
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.requirements {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.requirementsList {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.requirementItem {
+  font-size: 0.875rem;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.statCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 1rem 0;
+}
+
+.recentAssignments {
+  margin-bottom: 2rem;
+}
+
+.assignmentsList {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.assignmentItem {
+  display: grid;
+  grid-template-columns: 120px 1fr 120px auto;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  gap: 1rem;
+}
+
+.assignmentItem:last-child {
+  border-bottom: none;
+}
+
+.assignmentDate {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.assignmentDoctor {
+  font-size: 0.875rem;
+  color: #111827;
+  font-weight: 500;
+}
+
+.assignmentLocation {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.undesirableFlag {
+  font-size: 0.75rem;
+  color: #dc2626;
+  font-weight: 600;
+  background: #fef2f2;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+.trendsSection {
+  margin-bottom: 2rem;
+}
+
+.trendsList {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.trendItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.trendItem:last-child {
+  border-bottom: none;
+}
+
+.trendPeriod {
+  font-size: 0.875rem;
+  color: #111827;
+  font-weight: 600;
+}
+
+.trendStats {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.trendAssignments {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.trendRate {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.noAnalytics {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+  color: #6b7280;
+}
+
+.noAnalyticsIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.noAnalytics h3 {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  color: #374151;
+}
+
+.noAnalytics p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .analyticsView {
+    padding: 1rem;
+  }
+
+  .headerBadges {
+    gap: 0.25rem;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .statCard {
+    padding: 1rem;
+  }
+
+  .statValue {
+    font-size: 1.5rem;
+  }
+
+  .assignmentItem {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .trendItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .trendStats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}

@@ -1,0 +1,913 @@
+/* Clean Professional Roster View Styles */
+@import '../../styles/variables.css';
+
+.rosterContainer {
+  padding: var(--spacing-6);
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.rosterHeader {
+  margin-bottom: var(--spacing-6);
+  border-bottom: 1px solid var(--color-gray-200);
+  padding-bottom: var(--spacing-6);
+}
+
+.titleSection {
+  text-align: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.titleSection h2 {
+  margin: 0 0 var(--spacing-3) 0;
+  color: var(--color-navy);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.instructions {
+  margin: 0;
+  color: var(--color-gray-600);
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+.tabGroup {
+  display: flex;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-1);
+}
+
+.tab {
+  padding: var(--spacing-2) var(--spacing-4);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--color-gray-600);
+  white-space: nowrap;
+  font-size: var(--font-size-sm);
+}
+
+.tab:hover {
+  background: var(--color-white);
+  color: var(--color-gray-800);
+  box-shadow: var(--shadow-sm);
+}
+
+.tab.active {
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+.viewToggle {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.viewButton {
+  padding: var(--spacing-2);
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-lg);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewButton:hover {
+  background: var(--color-gray-50);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.viewButton.active {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-base);
+}
+
+/* Grid Layout */
+.rosterGrid {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  box-shadow: var(--shadow-base);
+  margin-bottom: var(--spacing-6);
+}
+
+.rosterTable {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 1000px;
+  background: var(--color-white);
+}
+
+/* Header Row */
+.headerRow {
+  display: table-row;
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.dateHeader,
+.shiftHeader {
+  display: table-cell;
+  padding: var(--spacing-4);
+  text-align: center;
+  font-weight: var(--font-weight-semibold);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  vertical-align: middle;
+  font-size: var(--font-size-sm);
+}
+
+.dateHeader {
+  background: var(--color-primary);
+  min-width: 140px;
+  position: sticky;
+  left: 0;
+  z-index: 11;
+}
+
+.shiftHeader {
+  min-width: 160px;
+  position: relative;
+}
+
+.shiftLocation {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-1);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.shiftName {
+  font-size: var(--font-size-xs);
+  opacity: 0.9;
+  font-weight: var(--font-weight-normal);
+}
+
+
+/* Date Rows */
+.dateRow {
+  display: table-row;
+  transition: background-color var(--transition-fast);
+}
+
+.dateRow:nth-child(even) {
+  background-color: var(--color-gray-50);
+}
+
+.dateRow:hover {
+  background-color: var(--color-gray-100);
+}
+
+.dateRow.weekendRow {
+  background: var(--color-gray-50);
+}
+
+.dateCell {
+  display: table-cell;
+  padding: var(--spacing-4);
+  border-right: 1px solid var(--color-gray-300);
+  border-bottom: 1px solid var(--color-gray-200);
+  vertical-align: middle;
+  text-align: center;
+  background: var(--color-white);
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  min-width: 140px;
+  box-shadow: var(--shadow-sm);
+}
+
+.dateMain {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-900);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-1);
+}
+
+.dateISO {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+  font-family: monospace;
+}
+
+.weekendBadge {
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--spacing-1);
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+/* Shift Cells */
+.shiftCell {
+  display: table-cell;
+  padding: var(--spacing-4);
+  border-right: 1px solid var(--color-gray-200);
+  border-bottom: 1px solid var(--color-gray-200);
+  vertical-align: middle;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  min-width: 160px;
+  min-height: 70px;
+  background: var(--color-white);
+}
+
+.shiftCell:hover {
+  background-color: var(--color-gray-50);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  z-index: 3;
+}
+
+.shiftCell.vacant {
+  background: #fef3c7; /* Orange background for vacant shifts */
+  border: 2px dashed var(--color-warning);
+}
+
+.shiftCell.vacant:hover {
+  background: #fde68a;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.shiftCell.modified {
+  background: #e9d5ff; /* Light purple background for modified shifts */
+  border: 2px solid #9333ea; /* Purple border */
+  position: relative;
+}
+
+.shiftCell.modified:hover {
+  background: #ddd6fe;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(147, 51, 234, 0.3);
+}
+
+.shiftCell.modified::after {
+  content: '✎';
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 10px;
+  color: #9333ea;
+  opacity: 0.7;
+}
+
+.shiftCell.assigned {
+  background: var(--color-white);
+}
+
+.doctorName {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+  color: var(--color-gray-900);
+}
+
+.vacantText {
+  color: var(--color-warning);
+  font-weight: var(--font-weight-bold);
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  font-size: var(--font-size-xs);
+}
+
+.assignedText {
+  color: var(--color-gray-900);
+  font-weight: var(--font-weight-medium);
+}
+
+
+/* Card View Styles */
+.cardView {
+  display: grid;
+  gap: var(--spacing-6);
+  margin-bottom: var(--spacing-6);
+}
+
+.dateCard {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-base);
+  overflow: hidden;
+  border: 1px solid var(--color-gray-200);
+  transition: all var(--transition-base);
+}
+
+.dateCard:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.dateCard.weekendCard {
+  border-left: 3px solid var(--color-gray-400);
+}
+
+.dateCardHeader {
+  background: var(--color-gray-50);
+  padding: var(--spacing-5);
+  border-bottom: 1px solid var(--color-gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+}
+
+.dateCardHeader h3 {
+  margin: 0;
+  color: var(--color-navy);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.dateCardISO {
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  background: var(--color-white);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-base);
+  border: 1px solid var(--color-gray-200);
+}
+
+.weekendLabel {
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.shiftsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-4);
+  padding: var(--spacing-5);
+}
+
+.shiftCard {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.shiftCard:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+}
+
+.shiftCard.vacantCard {
+  background: #fef3c7;
+  border: 2px dashed var(--color-warning);
+}
+
+.shiftCard.modifiedCard {
+  background: #e9d5ff;
+  border: 2px solid #9333ea;
+  position: relative;
+}
+
+.shiftCard.modifiedCard::after {
+  content: '✎';
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 12px;
+  color: #9333ea;
+  opacity: 0.7;
+}
+
+
+
+.shiftCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-3);
+  gap: var(--spacing-2);
+}
+
+.shiftLocation {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.shiftTime {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+}
+
+
+.shiftCardDoctor {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  text-align: center;
+  padding: var(--spacing-3);
+  background: var(--color-gray-50);
+  border-radius: var(--radius-base);
+}
+
+/* Legend */
+.legend {
+  margin-top: var(--spacing-6);
+  padding: var(--spacing-5);
+  background: var(--color-gray-50);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-gray-200);
+  box-shadow: var(--shadow-base);
+}
+
+.legendTitle {
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-4);
+  color: var(--color-navy);
+  font-size: var(--font-size-base);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.legendItems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-6);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  background: var(--color-white);
+  padding: var(--spacing-3);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.legendSwatch {
+  width: 20px;
+  height: 16px;
+  border-radius: var(--radius-base);
+  border: 1px solid var(--color-gray-200);
+  flex-shrink: 0;
+}
+
+.legendSwatch.vacant {
+  background: #fef3c7;
+  border: 2px dashed var(--color-warning);
+}
+
+
+
+.legendSwatch.assigned {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+}
+
+.legendSwatch.modified {
+  background: #e9d5ff;
+  border: 2px solid #9333ea;
+}
+
+/* Modal Styles - Use components.css classes instead */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--modal-backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+}
+
+.modal {
+  background: var(--color-white);
+  border-radius: var(--modal-radius);
+  box-shadow: var(--modal-shadow);
+  max-width: 500px;
+  width: 90vw;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-6);
+  border-bottom: 1px solid var(--color-gray-200);
+  background: var(--color-gray-50);
+}
+
+.modalHeader h3 {
+  margin: 0;
+  color: var(--color-navy);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: var(--font-size-xl);
+  cursor: pointer;
+  padding: var(--spacing-2);
+  border-radius: var(--radius-base);
+  color: var(--color-gray-500);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton:hover {
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.modalBody {
+  padding: var(--spacing-6);
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.shiftDetails {
+  margin-bottom: var(--spacing-6);
+  padding-bottom: var(--spacing-6);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.shiftDetails h4 {
+  margin: 0 0 var(--spacing-4) 0;
+  color: var(--color-navy);
+  font-weight: var(--font-weight-semibold);
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-3);
+}
+
+.detailRow .label {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-600);
+}
+
+.detailRow .value {
+  color: var(--color-gray-900);
+  text-align: right;
+}
+
+.reassignForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.formLabel {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-700);
+  font-size: var(--font-size-sm);
+}
+
+.doctorSelect {
+  padding: var(--spacing-3);
+  border: var(--input-border);
+  border-radius: var(--input-radius);
+  font-size: var(--input-font-size);
+  background: var(--color-white);
+  color: var(--color-gray-900);
+  transition: border-color var(--transition-fast);
+}
+
+.doctorSelect:focus {
+  outline: none;
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 3px rgba(0, 168, 168, 0.1);
+}
+
+.doctorInfo {
+  background: var(--color-gray-50);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.infoRow {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin-bottom: var(--spacing-2);
+}
+
+.infoRow:last-child {
+  margin-bottom: 0;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-4);
+  padding: var(--spacing-6);
+  border-top: 1px solid var(--color-gray-200);
+  background: var(--color-gray-50);
+}
+
+.cancelButton,
+.confirmButton {
+  padding: var(--button-padding-md);
+  border-radius: var(--button-radius);
+  font-weight: var(--button-font-weight);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 2px solid transparent;
+  font-size: var(--font-size-base);
+}
+
+.cancelButton {
+  background: var(--color-white);
+  color: var(--color-gray-700);
+  border-color: var(--color-gray-300);
+}
+
+.cancelButton:hover {
+  background: var(--color-gray-50);
+  border-color: var(--color-gray-400);
+  color: var(--color-gray-800);
+}
+
+.confirmButton {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+.confirmButton:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.confirmButton:disabled {
+  background: var(--color-gray-300);
+  border-color: var(--color-gray-300);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Smooth transitions */
+.rosterGrid,
+.cardView {
+  opacity: 1;
+  transition: opacity var(--transition-base);
+}
+
+/* Print styles */
+@media print {
+  .controls,
+  .legend,
+  .instructions {
+    display: none;
+  }
+  
+  .rosterContainer {
+    box-shadow: none;
+    border: 1px solid var(--color-gray-400);
+  }
+  
+  .shiftCell:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* No Data State */
+.noDataState {
+  text-align: center;
+  padding: var(--spacing-12) var(--spacing-6);
+  color: var(--color-gray-600);
+  background: var(--color-gray-50);
+  border-radius: var(--radius-xl);
+  border: 2px dashed var(--color-gray-300);
+}
+
+.noDataIcon {
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--spacing-4);
+  opacity: 0.6;
+}
+
+.noDataState h3 {
+  margin: 0 0 var(--spacing-4) 0;
+  color: var(--color-navy);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.noDataState p {
+  margin: 0;
+  font-style: italic;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .rosterTable {
+    min-width: 800px;
+  }
+  
+  .shiftHeader,
+  .shiftCell {
+    min-width: 140px;
+    padding: var(--spacing-3);
+  }
+  
+  .titleSection h2 {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .rosterContainer {
+    padding: var(--spacing-4);
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .tabGroup {
+    justify-content: space-between;
+  }
+  
+  .tab {
+    flex: 1;
+    padding: var(--spacing-3);
+    font-size: var(--font-size-xs);
+  }
+  
+  .viewToggle {
+    justify-content: center;
+  }
+  
+  .titleSection h2 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .shiftHeader,
+  .shiftCell {
+    min-width: 120px;
+    padding: var(--spacing-2) var(--spacing-3);
+  }
+  
+  .dateCell {
+    min-width: 100px;
+    padding: var(--spacing-3);
+  }
+  
+  .dateMain {
+    font-size: var(--font-size-xs);
+  }
+  
+  .dateISO {
+    font-size: var(--font-size-xs);
+  }
+  
+  .doctorName {
+    font-size: var(--font-size-xs);
+  }
+  
+  .shiftsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4);
+  }
+  
+  .dateCardHeader {
+    padding: var(--spacing-4);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .legendItems {
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+  
+  .modal {
+    width: 95vw;
+    max-height: 85vh;
+  }
+  
+  .modalBody {
+    padding: var(--spacing-4);
+  }
+  
+  .detailRow {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .detailRow .value {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .rosterContainer {
+    padding: var(--spacing-3);
+  }
+  
+  .titleSection h2 {
+    font-size: var(--font-size-lg);
+  }
+  
+  .instructions {
+    font-size: var(--font-size-xs);
+  }
+  
+  .tab {
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: var(--font-size-xs);
+  }
+  
+  .rosterTable {
+    min-width: 600px;
+  }
+  
+  .shiftHeader,
+  .shiftCell {
+    min-width: 100px;
+    padding: var(--spacing-2);
+  }
+  
+  .dateCell {
+    min-width: 80px;
+  }
+}

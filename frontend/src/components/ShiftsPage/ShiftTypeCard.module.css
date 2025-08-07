@@ -1,0 +1,142 @@
+.shiftTypeCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-left: 4px solid #6b7280;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 0.5rem;
+}
+
+.shiftTypeCard:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #3b82f6;
+}
+
+.shiftTypeCard.selected {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.shiftName {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.badges {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 0.125rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.badge.leadership {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge.clinical {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.label {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.value {
+  color: #374151;
+  font-weight: 400;
+}
+
+.difficulty {
+  font-weight: 600;
+}
+
+.analytics {
+  display: flex;
+  justify-content: space-around;
+  background: #f9fafb;
+  border-radius: 6px;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.analyticsItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.analyticsValue {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #374151;
+}
+
+.analyticsLabel {
+  font-size: 0.6875rem;
+  color: #6b7280;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.description {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.shiftTypeCard.selected .cardHeader .shiftName {
+  color: #1d4ed8;
+}
+
+.shiftTypeCard.selected .analytics {
+  background: #f0f9ff;
+  border-color: #bfdbfe;
+}

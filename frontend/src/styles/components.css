@@ -1,0 +1,441 @@
+@import './variables.css';
+
+/* ==================== NAVIGATION COMPONENTS ==================== */
+
+/* Standardized Navigation Bar */
+.standardNavBar {
+  background: var(--nav-background);
+  border-bottom: var(--nav-border);
+  box-shadow: var(--nav-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.standardNavContent {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--nav-padding);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-height);
+}
+
+.standardNavMenu {
+  display: flex;
+  gap: var(--spacing-6);
+  flex: 1;
+  justify-content: center;
+}
+
+.standardNavItem {
+  background: none;
+  border: none;
+  color: var(--color-navy-blue);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.standardNavItem:hover {
+  background: var(--color-primary-teal);
+  color: var(--color-white);
+}
+
+.standardNavItemActive {
+  background: var(--color-primary-teal);
+  color: var(--color-white);
+}
+
+/* ==================== BUTTON COMPONENTS ==================== */
+
+/* Primary Button */
+.btnPrimary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: 2px solid var(--color-primary);
+  padding: var(--button-padding-md);
+  border-radius: var(--button-radius);
+  font-size: var(--font-size-base);
+  font-weight: var(--button-font-weight);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btnPrimary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btnPrimary:disabled {
+  background-color: var(--color-gray-300);
+  border-color: var(--color-gray-300);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Secondary Button */
+.btnSecondary {
+  background-color: var(--color-white);
+  color: var(--color-gray-700);
+  border: 2px solid var(--color-gray-300);
+  padding: var(--button-padding-md);
+  border-radius: var(--button-radius);
+  font-size: var(--font-size-base);
+  font-weight: var(--button-font-weight);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.btnSecondary:hover:not(:disabled) {
+  background-color: var(--color-gray-50);
+  border-color: var(--color-gray-400);
+  color: var(--color-gray-800);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Small Button */
+.btnSm {
+  padding: var(--button-padding-sm);
+  font-size: var(--font-size-sm);
+}
+
+/* Large Button */
+.btnLg {
+  padding: var(--button-padding-lg);
+  font-size: var(--font-size-lg);
+}
+
+/* ==================== FORM COMPONENTS ==================== */
+
+/* Standard Form Group */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-4);
+}
+
+.formGroup:last-child {
+  margin-bottom: 0;
+}
+
+/* Standard Form Label */
+.formLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+}
+
+/* Standard Form Input */
+.formInput {
+  width: 100%;
+  padding: var(--input-padding);
+  border: var(--input-border);
+  border-radius: var(--input-radius);
+  font-size: var(--input-font-size);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  background-color: var(--color-white);
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 3px rgba(0, 168, 168, 0.1);
+}
+
+.formInput:disabled {
+  background-color: var(--color-gray-50);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.formInputError {
+  border-color: var(--input-border-error);
+}
+
+.formInputError:focus {
+  border-color: var(--input-border-error);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Error Text */
+.formErrorText {
+  font-size: var(--font-size-xs);
+  color: var(--color-error);
+  margin-top: var(--spacing-1);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+/* ==================== MODAL COMPONENTS ==================== */
+
+/* Standard Modal Overlay */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--modal-backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  padding: var(--spacing-4);
+}
+
+/* Standard Modal Content */
+.modalContent {
+  background: var(--card-background);
+  border-radius: var(--modal-radius);
+  box-shadow: var(--modal-shadow);
+  width: 100%;
+  max-width: var(--modal-max-width);
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Standard Modal Header */
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-6) var(--modal-padding) var(--spacing-4) var(--modal-padding);
+  border-bottom: 1px solid var(--color-gray-200);
+  background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-gray-100) 100%);
+}
+
+.modalTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-navy);
+  margin: 0;
+}
+
+.modalCloseButton {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  color: var(--color-gray-500);
+  font-size: var(--font-size-xl);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalCloseButton:hover {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+/* ==================== CARD COMPONENTS ==================== */
+
+/* Standard Card */
+.card {
+  background: var(--card-background);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  border: var(--card-border);
+  padding: var(--card-padding);
+  transition: all var(--transition-fast);
+}
+
+.cardHover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-primary-light);
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-4);
+  padding-bottom: var(--spacing-4);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.cardTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-navy);
+  margin: 0;
+}
+
+/* ==================== PAGE LAYOUT COMPONENTS ==================== */
+
+/* Standard Page Container */
+.pageContainer {
+  min-height: 100vh;
+  background: var(--color-background);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Standard Page Main Content */
+.pageMain {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--page-padding);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Page Header */
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-8);
+  gap: var(--spacing-4);
+}
+
+.pageTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-navy);
+  margin: 0;
+}
+
+.pageSubtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
+  margin: var(--spacing-2) 0 0 0;
+  max-width: 600px;
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+
+/* Loading Spinner */
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-gray-200);
+  border-top: 3px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Status Badges */
+.badge {
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badgeSuccess {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badgeWarning {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.badgeError {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.badgeInfo {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+@media (max-width: 768px) {
+  .standardNavContent {
+    height: var(--nav-height-mobile);
+    padding: 0 var(--spacing-3);
+  }
+  
+  .standardNavMenu {
+    display: none; /* Can be enhanced with hamburger menu */
+  }
+  
+  .pageMain {
+    padding: var(--page-padding-mobile);
+  }
+  
+  .pageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+  }
+  
+  .pageTitle {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .modalContent {
+    margin: var(--spacing-2);
+  }
+  
+  .modalHeader {
+    padding: var(--spacing-4) var(--spacing-6) var(--spacing-3) var(--spacing-6);
+  }
+}
+
+@media (max-width: 480px) {
+  .modalOverlay {
+    padding: var(--spacing-2);
+  }
+  
+  .modalContent {
+    margin: 0;
+    border-radius: var(--radius-lg);
+  }
+  
+  .card {
+    padding: var(--spacing-4);
+  }
+  
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

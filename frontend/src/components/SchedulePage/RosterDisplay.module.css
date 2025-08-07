@@ -1,0 +1,510 @@
+.rosterDisplay {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.displayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #f8f9fa;
+}
+
+.rosterInfo h2 {
+  margin: 0 0 8px 0;
+  color: #002E5D;
+  font-size: 1.5rem;
+}
+
+.rosterMeta {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+  color: #666;
+}
+
+.rosterMeta span {
+  padding: 4px 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+}
+
+.viewControls {
+  display: flex;
+  gap: 4px;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.viewButton {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.viewButton:hover {
+  background-color: rgba(0, 168, 168, 0.1);
+}
+
+.viewButton.active {
+  background-color: #00A8A8;
+  color: white;
+}
+
+.statisticsPanel {
+  padding: 20px 24px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.statisticsPanel h3 {
+  margin: 0 0 16px 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.statLabel {
+  font-weight: 500;
+  color: #666;
+}
+
+.statValue {
+  font-weight: bold;
+  color: #00A8A8;
+  font-size: 1.1rem;
+}
+
+.displayContent {
+  padding: 24px;
+  overflow-x: auto;
+}
+
+/* Pagination Controls */
+.paginationControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+}
+
+.weekSelector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.weekSelector label {
+  font-weight: 500;
+  color: #495057;
+  font-size: 14px;
+}
+
+.weekSelect {
+  padding: 6px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background-color: white;
+  color: #495057;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.weekSelect:hover {
+  border-color: #00A8A8;
+}
+
+.weekSelect:focus {
+  outline: none;
+  border-color: #00A8A8;
+  box-shadow: 0 0 0 2px rgba(0, 168, 168, 0.2);
+}
+
+.pageNavigation {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pageButton {
+  padding: 8px 16px;
+  border: 1px solid #00A8A8;
+  background-color: white;
+  color: #00A8A8;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.pageButton:hover:not(:disabled) {
+  background-color: #00A8A8;
+  color: white;
+}
+
+.pageButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border-color: #dee2e6;
+}
+
+.pageInfo {
+  font-weight: 600;
+  color: #495057;
+}
+
+.dateRange, .doctorCount {
+  font-size: 0.9em;
+  color: #6c757d;
+  font-weight: normal;
+}
+
+/* Calendar View Styles */
+.calendarView {
+  width: 100%;
+}
+
+.shiftSeparator {
+  width: 2px;
+  background-color: #00A8A8;
+  border-left: 2px solid #00A8A8;
+  border-right: 2px solid #00A8A8;
+}
+
+.nonClinicalHeader {
+  background-color: rgba(0, 168, 168, 0.1);
+  font-style: italic;
+}
+
+.nonClinicalCell {
+  background-color: #f5f9fc;
+  border-left: 2px solid #e0e0e0;
+}
+
+.calendarGrid {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.calendarHeader,
+.calendarRow {
+  display: flex;
+  min-height: 48px;
+}
+
+.calendarHeader {
+  background-color: #002E5D;
+  color: white;
+  font-weight: 600;
+}
+
+.calendarRow:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.dateHeader {
+  min-width: 120px;
+  flex: 0 0 120px;
+  padding: 12px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  background-color: rgba(0, 168, 168, 0.1);
+}
+
+.calendarHeader .dateHeader {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.shiftHeader {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 4px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  text-align: center;
+  font-weight: 500;
+  word-wrap: break-word;
+  white-space: normal;
+  line-height: 1.1;
+  overflow-wrap: break-word;
+}
+
+.dateCell {
+  min-width: 120px;
+  flex: 0 0 120px;
+  padding: 12px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  background-color: rgba(0, 168, 168, 0.05);
+}
+
+.assignmentCell {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 4px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 500;
+  word-wrap: break-word;
+  white-space: normal;
+  line-height: 1.1;
+  overflow-wrap: break-word;
+}
+
+.vacant {
+  color: #999;
+  font-style: italic;
+}
+
+.assigned {
+  color: #333;
+}
+
+.off {
+  color: #666;
+  font-style: italic;
+}
+
+/* Doctor View Styles */
+.doctorView {
+  width: 100%;
+}
+
+.doctorGrid {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.doctorHeader,
+.doctorRow {
+  display: grid;
+  grid-template-columns: 120px repeat(10, 1fr);
+  min-height: 60px;
+}
+
+.doctorHeader {
+  background-color: #002E5D;
+  color: white;
+  font-weight: 600;
+  min-height: 48px;
+}
+
+.doctorStatsHeader {
+  background-color: #00A8A8;
+  color: white;
+  font-weight: 500;
+  display: grid;
+  grid-template-columns: 120px repeat(10, 1fr);
+  min-height: 40px;
+  font-size: 12px;
+}
+
+.doctorStatsCell {
+  padding: 4px 2px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.eftValue {
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.utilizationValue {
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+.eftValueNA,
+.utilizationValueNA {
+  color: #6c757d;
+  opacity: 0.7;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.doctorRow:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.doctorHeaderCell {
+  padding: 12px 8px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doctorAssignmentCell {
+  padding: 8px 4px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.2;
+  min-height: 40px;
+}
+
+/* Summary View Styles */
+.summaryView {
+  width: 100%;
+}
+
+.summaryTable {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.summaryHeader,
+.summaryRow {
+  display: flex;
+  min-height: 48px;
+}
+
+.summaryHeader {
+  background-color: #002E5D;
+  color: white;
+  font-weight: 600;
+}
+
+.summaryRow:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.summaryHeaderCell,
+.summaryCellData {
+  flex: 1;
+  min-width: 100px;
+  padding: 12px 8px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.summaryHeaderCell {
+  font-weight: 600;
+  text-transform: capitalize;
+  justify-content: center;
+  text-align: center;
+}
+
+.summaryCellData {
+  justify-content: center;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .displayHeader {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .viewControls {
+    justify-content: center;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .rosterMeta {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .calendarGrid,
+  .doctorGrid,
+  .summaryTable {
+    font-size: 12px;
+  }
+
+  .shiftHeader,
+  .doctorHeaderCell,
+  .summaryHeaderCell {
+    padding: 8px 4px;
+  }
+
+  .assignmentCell,
+  .doctorAssignmentCell,
+  .summaryCellData {
+    padding: 6px 2px;
+  }
+
+  .doctorHeader,
+  .doctorRow {
+    grid-template-columns: 100px repeat(10, 1fr);
+  }
+}
