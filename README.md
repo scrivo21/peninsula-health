@@ -64,6 +64,42 @@ The system will be running on:
 - **TypeScript**: Type-safe component development
 - **REST API Integration**: Connects to backend for all operations
 
+## 🌿 Git Branch Structure
+
+This repository uses a structured branching model for organized development:
+
+### Production Branches
+- **`main`** - Production-ready code, stable releases only
+- **`development`** - Integration branch for ongoing development
+
+### Feature Branches
+- **`feature/roster-enhancements`** - Roster system improvements and new features
+- **`feature/*`** - Individual feature development branches
+
+### Development Workflow
+```bash
+# Clone the repository
+git clone [repository-url]
+cd "Peninsula Health"
+
+# Work on new features
+git checkout development
+git checkout -b feature/your-feature-name
+
+# Make changes, then merge back
+git checkout development
+git merge feature/your-feature-name
+
+# Deploy to production
+git checkout main
+git merge development
+```
+
+### Branch Policies
+- **Main**: Requires pull request approval, all tests must pass
+- **Development**: Integration testing, staging deployments  
+- **Features**: Individual development, regular commits encouraged
+
 ## 📚 Core Modules
 
 ### 🏥 **Dashboard**
