@@ -10,6 +10,7 @@ import { SettingsPage } from './components/SettingsPage/SettingsPage';
 import { ConfigPage } from './components/ConfigPage';
 import { ShiftsPage } from './components/ShiftsPage';
 import { Footer } from './components/Footer';
+import { UserGuide } from './components/UserGuide';
 import { DemoDataService } from './utils/demoData';
 import './styles/global.css';
 
@@ -64,6 +65,9 @@ function App() {
               
               {/* Shifts route */}
               <Route path="/shifts" element={<ShiftsPage />} />
+              
+              {/* Help/Documentation routes */}
+              <Route path="/help/user-guide" element={<UserGuide />} />
               
               {/* Catch-all route for 404s */}
               <Route path="*" element={<Navigate to="/login" replace />} />

@@ -8,7 +8,7 @@ interface ShiftType {
   id: string;
   name: string;
   location: string;
-  type: 'clinical' | 'non_clinical';
+  type: 'clinical';
   duration_hours: number;
   penalty_points: number;
   is_leadership: boolean;
@@ -16,9 +16,21 @@ interface ShiftType {
   requirements: string[];
 }
 
+interface ShiftConfigItem {
+  location: string;
+  type: string;
+  time: string;
+  start_time: string;
+  end_time: string;
+  duration_hours: number;
+  weighting: number;
+  is_leadership: boolean;
+  requires_experience: boolean;
+  description: string;
+}
+
 interface ShiftConfig {
-  clinical_shifts: string[];
-  non_clinical_shifts: string[];
+  clinical_shifts: ShiftConfigItem[];
 }
 
 export const ShiftsPage: React.FC = () => {
@@ -26,7 +38,7 @@ export const ShiftsPage: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [shiftConfig, setShiftConfig] = useState<ShiftConfig | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'overview' | 'clinical' | 'non_clinical' | 'penalties'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'clinical' | 'penalties'>('overview');
   
   // Check authentication
   useEffect(() => {
@@ -75,49 +87,71 @@ export const ShiftsPage: React.FC = () => {
     navigate('/login');
   };
 
-  const parseShiftDetails = (shiftName: string): ShiftType => {
-    const parts = shiftName.split(' ');
-    const location = parts[0] || '';
-    const role = parts[1] || '';
-    const timeType = parts[2] || '';
+  const parseShiftDetails = (shift: ShiftConfigItem): ShiftType => {
+    // Handle both string and object inputs for backward compatibility
+    if (typeof shift === 'string') {
+      // Legacy string handling
+      const parts = (shift as any).split(' ');
+      const location = parts[0] || '';
+      const role = parts[1] || '';
+      const timeType = parts[2] || '';
+      
+      const isLeadership = role === 'Blue' || role === 'Green';
+      const isRosebud = location === 'Rosebud';
+      const isPM = timeType === 'PM';
+      
+      let penaltyPoints = 0;
+      if (isLeadership) penaltyPoints += 3;
+      if (isRosebud) penaltyPoints += 1;
+      if (isPM) penaltyPoints += 1;
+      
+      return {
+        id: (shift as any).replace(/\s+/g, '_').toLowerCase(),
+        name: shift as any,
+        location: location,
+        type: 'clinical',
+        duration_hours: (shift as any).includes('Admin') ? 8 : 10,
+        penalty_points: penaltyPoints,
+        is_leadership: isLeadership,
+        description: `${location} ${role} ${timeType} shift`,
+        requirements: isLeadership ? ['Leadership experience', 'Senior level'] : ['Active medical license']
+      };
+    }
     
-    const isLeadership = role === 'Blue' || role === 'Green';
-    const isRosebud = location === 'Rosebud';
-    const isPM = timeType === 'PM';
+    // New object handling
+    const shiftName = `${shift.location} ${shift.type} ${shift.time}`;
+    const isRosebud = shift.location === 'Rosebud';
+    const isPM = shift.time === 'PM' || shift.time === 'ND';
     
     // Calculate penalty points based on shift characteristics
     let penaltyPoints = 0;
-    if (isLeadership) penaltyPoints += 3; // Leadership roles are harder
+    if (shift.is_leadership) penaltyPoints += 3; // Leadership roles are harder
     if (isRosebud) penaltyPoints += 1; // Rosebud is further away
     if (isPM) penaltyPoints += 1; // PM shifts are less desirable
     
     return {
       id: shiftName.replace(/\s+/g, '_').toLowerCase(),
       name: shiftName,
-      location: location,
-      type: shiftName.includes('Admin') ? 'non_clinical' : 'clinical',
-      duration_hours: shiftName.includes('Admin') ? 8 : 10,
+      location: shift.location,
+      type: 'clinical',
+      duration_hours: shift.duration_hours || 10,
       penalty_points: penaltyPoints,
-      is_leadership: isLeadership,
-      description: `${location} ${role} ${timeType} shift`,
-      requirements: isLeadership ? ['Leadership experience', 'Senior level'] : ['Active medical license']
+      is_leadership: shift.is_leadership || false,
+      description: shift.description || `${shift.location} ${shift.type} ${shift.time} shift`,
+      requirements: shift.is_leadership ? ['Leadership experience', 'Senior level'] : ['Active medical license']
     };
   };
 
   const getClinicalShifts = (): ShiftType[] => {
-    return (shiftConfig?.clinical_shifts || []).map(parseShiftDetails);
-  };
-
-  const getNonClinicalShifts = (): ShiftType[] => {
-    return (shiftConfig?.non_clinical_shifts || []).map(parseShiftDetails);
+    return (shiftConfig?.clinical_shifts || []).map(shift => parseShiftDetails(shift as any));
   };
 
   const getAllShifts = (): ShiftType[] => {
-    return [...getClinicalShifts(), ...getNonClinicalShifts()];
+    return getClinicalShifts();
   };
 
-  const getShiftTypeColor = (type: 'clinical' | 'non_clinical') => {
-    return type === 'clinical' ? '#2196F3' : '#FF9800';
+  const getShiftTypeColor = () => {
+    return '#2196F3'; // Blue for clinical shifts
   };
 
   const getLocationColor = (location: string) => {
@@ -131,9 +165,9 @@ export const ShiftsPage: React.FC = () => {
         <div className={styles.shiftBadges}>
           <span 
             className={styles.typeBadge}
-            style={{ backgroundColor: getShiftTypeColor(shift.type) }}
+            style={{ backgroundColor: getShiftTypeColor() }}
           >
-            {shift.type.replace('_', ' ').toUpperCase()}
+            CLINICAL
           </span>
           <span 
             className={styles.locationBadge}
@@ -180,7 +214,6 @@ export const ShiftsPage: React.FC = () => {
   const renderOverview = () => {
     const allShifts = getAllShifts();
     const clinicalShifts = getClinicalShifts();
-    const nonClinicalShifts = getNonClinicalShifts();
     const leadershipShifts = allShifts.filter(s => s.is_leadership);
     const highPenaltyShifts = allShifts.filter(s => s.penalty_points > 2);
     
@@ -189,15 +222,15 @@ export const ShiftsPage: React.FC = () => {
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
             <div className={styles.statNumber}>{allShifts.length}</div>
-            <div className={styles.statLabel}>Total Shifts</div>
+            <div className={styles.statLabel}>Total Clinical Shifts</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statNumber}>{clinicalShifts.length}</div>
-            <div className={styles.statLabel}>Clinical Shifts</div>
+            <div className={styles.statNumber}>{allShifts.filter(s => s.location === 'Frankston').length}</div>
+            <div className={styles.statLabel}>Frankston Shifts</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statNumber}>{nonClinicalShifts.length}</div>
-            <div className={styles.statLabel}>Non-Clinical Shifts</div>
+            <div className={styles.statNumber}>{allShifts.filter(s => s.location === 'Rosebud').length}</div>
+            <div className={styles.statLabel}>Rosebud Shifts</div>
           </div>
           <div className={styles.statCard}>
             <div className={styles.statNumber}>{leadershipShifts.length}</div>
@@ -329,7 +362,6 @@ export const ShiftsPage: React.FC = () => {
             {[
               { id: 'overview', label: 'Overview', icon: '📊' },
               { id: 'clinical', label: 'Clinical Shifts', icon: '🏥' },
-              { id: 'non_clinical', label: 'Non-Clinical Shifts', icon: '📋' },
               { id: 'penalties', label: 'Penalty System', icon: '⚖️' }
             ].map(tab => (
               <button
@@ -367,17 +399,6 @@ export const ShiftsPage: React.FC = () => {
                 </div>
               )}
               
-              {activeTab === 'non_clinical' && (
-                <div className={styles.shiftsGrid}>
-                  <div className={styles.sectionHeader}>
-                    <h2>Non-Clinical Shifts</h2>
-                    <p>Administrative and support roles</p>
-                  </div>
-                  <div className={styles.cardsGrid}>
-                    {getNonClinicalShifts().map(renderShiftCard)}
-                  </div>
-                </div>
-              )}
               
               {activeTab === 'penalties' && (
                 <div className={styles.penaltiesSection}>

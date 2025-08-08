@@ -2356,8 +2356,10 @@ function generateEnhancedRosterHTML(job) {
   const statsLines = job.outputs?.statistics ? 
     job.outputs.statistics.split('\n').filter(line => line.trim() && !line.startsWith('#')) : [];
   
-  const distributionLines = job.outputs?.distribution ? 
-    job.outputs.distribution.split('\n').filter(line => line.trim() && !line.startsWith('#')) : [];
+  // Get distribution data from the createDistributionFormat function
+  const distributionCsv = createDistributionFormat(job);
+  const distributionLines = distributionCsv ? 
+    distributionCsv.split('\n').filter(line => line.trim() && !line.startsWith('#')) : [];
   
   // Generate calendar table HTML
   const calendarTableHTML = generateTableHTML(calendarLines, 'calendar');
@@ -2488,35 +2490,29 @@ function generateEnhancedRosterHTML(job) {
         background: #17a2b8;
         color: white;
         font-weight: 600;
-        padding: 8px 6px;
+        padding: 10px 8px;
         text-align: center;
         font-size: 10px;
         letter-spacing: 0.2px;
-        position: sticky;
-        top: 0;
         word-wrap: break-word;
-        word-break: break-word;
-        hyphens: auto;
+        word-break: normal;
         vertical-align: middle;
-        line-height: 1.2;
-        min-width: 65px;
-        max-width: 120px;
+        line-height: 1.3;
+        min-width: 70px;
+        white-space: normal;
       }
       
       th:first-child {
-        min-width: 80px;
-        max-width: 100px;
+        min-width: 120px;
+        max-width: 140px;
         text-align: left;
-        padding-left: 10px;
+        padding-left: 12px;
         position: sticky;
         left: 0;
-        z-index: 2;
-        background: #138496;
-      }
-      
-      /* Specific column widths for shift locations */
-      th:not(:first-child) {
-        width: 8%;
+        z-index: 3;
+        background: #17a2b8;
+        font-weight: 700;
+        border-right: 2px solid #0d7a8a;
       }
       
       td {
@@ -2535,21 +2531,18 @@ function generateEnhancedRosterHTML(job) {
       td:first-child {
         text-align: left;
         padding-left: 10px;
-        font-weight: 500;
+        font-weight: 600;
         position: sticky;
         left: 0;
-        background: #f8f9fa;
+        background: #ffffff;
         z-index: 1;
-        border-right: 1px solid #dee2e6;
+        border-right: 2px solid #dee2e6;
+        min-width: 120px;
+        max-width: 140px;
+        color: #212529;
       }
       
-      tr:nth-child(even) td {
-        background: #f8f9fa;
-      }
-      
-      tr:hover td {
-        background: #e9ecef;
-      }
+      /* Removed alternate row coloring and hover effects */
       
       .vacant-cell {
         background: #fd7e14 !important;
@@ -2558,13 +2551,10 @@ function generateEnhancedRosterHTML(job) {
         text-align: center;
       }
       
-      .weekend-cell {
-        background: #fff3cd !important;
-      }
+      /* Removed weekend cell coloring */
       
       .doctor-cell {
         font-weight: 500;
-        color: #495057;
       }
       
       .shift-location {
@@ -2705,23 +2695,7 @@ function generateEnhancedRosterHTML(job) {
       <div class="color-legend">
         <div class="legend-item">
           <div class="legend-color" style="background: #fd7e14;"></div>
-          <span>Vacant Shifts</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color" style="background: #17a2b8;"></div>
-          <span>Covered/Assigned</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color" style="background: #28a745;"></div>
-          <span>Leadership Roles</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color" style="background: #6c757d;"></div>
-          <span>Admin/Management</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color" style="background: #dc3545;"></div>
-          <span>Emergency/Urgent</span>
+          <span>Vacant Shifts (Require Coverage)</span>
         </div>
       </div>
       <p style="margin-bottom: 15px; color: #666; font-size: 12px;">
@@ -2756,15 +2730,11 @@ function generateTableHTML(lines, type = 'default') {
   // Wrap table in a div for better control
   let tableHTML = '<div style="overflow-x: auto; width: 100%;"><table>';
   
-  // Generate headers with better formatting
+  // Generate headers without abbreviations
   tableHTML += '<thead><tr>';
   headers.forEach((header, index) => {
-    // Format location headers for better readability
-    let formattedHeader = header
-      .replace(/_/g, ' ')  // Replace underscores with spaces
-      .replace(/Frankston /g, 'F. ')  // Abbreviate Frankston
-      .replace(/Rosebud /g, 'R. ')    // Abbreviate Rosebud
-      .trim();
+    // Format headers - just replace underscores with spaces
+    let formattedHeader = header.replace(/_/g, ' ').trim();
     
     // Add title attribute for full text on hover
     tableHTML += `<th title="${header}">${formattedHeader}</th>`;
@@ -4154,17 +4124,23 @@ async function startServer() {
     // Initialize file system watcher for config.json
     initializeConfigWatcher();
     
-    app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       console.log(`🚀 Shift Happens Backend API running on port ${PORT}`);
       console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
       console.log(`👥 Doctors API: http://localhost:${PORT}/api/doctors`);
       console.log(`💬 Quotes API: http://localhost:${PORT}/api/quotes`);
       console.log(`🔍 Config file watcher is monitoring: ${CONFIG_FILE_PATH}`);
     });
+
+    module.exports = { app, server };
   } catch (error) {
     console.error('❌ Failed to start server:', error);
     process.exit(1);
   }
 }
 
-startServer();
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = { app };

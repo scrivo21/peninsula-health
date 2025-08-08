@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Backend API service
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: peninsula-health-backend
+    ports:
+      - "3001:3001"
+    volumes:
+      # Persist data and logs
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    restart: unless-stopped
+    networks:
+      - peninsula-network
+
+  # Frontend service
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: peninsula-health-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://localhost:3001/api
+    restart: unless-stopped
+    networks:
+      - peninsula-network
+
+# Network configuration
+networks:
+  peninsula-network:
+    driver: bridge
+
+# Volumes for data persistence (optional, using bind mounts above)
+volumes:
+  data:
+  logs:

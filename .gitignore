@@ -144,6 +144,7 @@ dmypy.json
 # Log files
 *.log
 nohup.out
+test-output.log
 
 # macOS system files
 .DS_Store

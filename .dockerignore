@@ -1,0 +1,89 @@
+# Node modules
+node_modules/
+*/node_modules/
+*/*/node_modules/
+
+# Build outputs
+build/
+dist/
+*/build/
+*/dist/
+
+# Test files and coverage
+coverage/
+*.test.js
+*.test.tsx
+*.spec.js
+*.spec.tsx
+__tests__/
+*/coverage/
+*/__tests__/
+test-output.log
+
+# Development files
+.git/
+.gitignore
+.github/
+*.md
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Documentation
+docs/
+*.pdf
+README*
+LICENSE
+
+# Python cache (for roster generator)
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Docker files (avoid recursive copy)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Scripts that shouldn't be in container
+scripts/
+run-all-tests.sh
+e2e-tests.js
+
+# Backup files
+*.bak
+backup/
+backups/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
