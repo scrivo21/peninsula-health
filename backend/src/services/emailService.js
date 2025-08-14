@@ -5,8 +5,17 @@ const path = require('path');
 class EmailService {
   constructor() {
     this.transporter = null;
-    this.configPath = path.join(__dirname, '../../data/config.json');
     this.isConfigured = false;
+    
+    // Configure config path based on environment (matching server.js logic)
+    const isElectron = process.env.ELECTRON_MODE === 'true';
+    if (isElectron) {
+      const os = require('os');
+      const userDataPath = path.join(os.homedir(), 'Peninsula-Health-Data');
+      this.configPath = path.join(userDataPath, 'config.json');
+    } else {
+      this.configPath = path.join(__dirname, '../../data/config.json');
+    }
   }
 
   /**

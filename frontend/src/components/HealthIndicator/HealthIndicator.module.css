@@ -1,0 +1,199 @@
+.healthIndicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.healthIndicator:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.healthIndicator.small {
+  gap: 4px;
+  padding: 2px 6px;
+  font-size: 0.65rem;
+}
+
+.healthIndicator.medium {
+  gap: 6px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+}
+
+.healthIndicator.large {
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.statusDot.healthy {
+  background: #28a745;
+  box-shadow: 0 0 6px rgba(40, 167, 69, 0.4);
+}
+
+.statusDot.healthy::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(40, 167, 69, 0.3);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.statusDot.offline {
+  background: #dc3545;
+  box-shadow: 0 0 6px rgba(220, 53, 69, 0.4);
+}
+
+.statusDot.offline::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(220, 53, 69, 0.3);
+  border-radius: 50%;
+  animation: pulse-error 2s infinite;
+}
+
+.small .statusDot {
+  width: 6px;
+  height: 6px;
+}
+
+.large .statusDot {
+  width: 10px;
+  height: 10px;
+}
+
+.statusDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-weight: 500;
+}
+
+.statusText {
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.lastChecked {
+  font-size: 0.65rem;
+  opacity: 0.7;
+}
+
+.responseTime {
+  font-size: 0.65rem;
+  opacity: 0.8;
+  font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+}
+
+.simpleStatus {
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+.blinking {
+  animation: blink 0.5s ease-in-out 2;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes pulse-error {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Dark theme adjustments */
+@media (prefers-color-scheme: dark) {
+  .healthIndicator {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .healthIndicator:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .healthIndicator {
+    gap: 4px;
+    padding: 3px 6px;
+    font-size: 0.7rem;
+  }
+  
+  .statusDetails {
+    gap: 1px;
+  }
+  
+  .statusText {
+    font-size: 0.7rem;
+  }
+  
+  .lastChecked,
+  .responseTime {
+    font-size: 0.6rem;
+  }
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getRandomMedicalQuoteSync, getCachedQuotes } from '../../utils/medicalQuotes';
 import { Logo } from '../Logo';
+import { HealthIndicator } from '../HealthIndicator';
 import styles from './Footer.module.css';
 
 export const Footer: React.FC = () => {
@@ -192,6 +193,8 @@ export const Footer: React.FC = () => {
               <span className={styles.hospitalName}>Peninsula Health</span>
               <span className={styles.separator}>•</span>
               <span className={styles.yearText}>© 2025</span>
+              <span className={styles.separator}>•</span>
+              <HealthIndicator size="small" />
             </div>
             
             <div className={styles.footerLinks}>

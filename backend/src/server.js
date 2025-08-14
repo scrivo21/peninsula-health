@@ -9,13 +9,39 @@ const chokidar = require('chokidar');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Detect if running in Electron
+const isElectron = process.env.ELECTRON_MODE === 'true';
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Config file path
-const CONFIG_FILE_PATH = path.join(__dirname, '../data/config.json');
+// Configure file paths based on environment
+let CONFIG_FILE_PATH;
+let DATA_DIR;
+
+if (isElectron) {
+  // In Electron, use app data directory for user data
+  const os = require('os');
+  const userDataPath = path.join(os.homedir(), 'Peninsula-Health-Data');
+  DATA_DIR = userDataPath;
+  CONFIG_FILE_PATH = path.join(userDataPath, 'config.json');
+  
+  // Ensure data directory exists
+  fs.ensureDirSync(DATA_DIR);
+  
+  // Copy default config if it doesn't exist
+  const defaultConfigPath = path.join(__dirname, '../data/config.json');
+  if (!fs.existsSync(CONFIG_FILE_PATH) && fs.existsSync(defaultConfigPath)) {
+    console.log('📋 Copying default configuration to user data directory...');
+    fs.copySync(defaultConfigPath, CONFIG_FILE_PATH);
+  }
+} else {
+  // Development/production mode - use relative paths
+  DATA_DIR = path.join(__dirname, '../data');
+  CONFIG_FILE_PATH = path.join(__dirname, '../data/config.json');
+}
 
 // In-memory config cache
 let configCache = null;
@@ -106,17 +132,29 @@ function cleanupWatcher() {
 }
 
 // Handle graceful shutdown
-process.on('SIGINT', () => {
-  console.log('\n🛑 Received SIGINT, shutting down gracefully...');
-  cleanupWatcher();
-  process.exit(0);
-});
+let shutdownInProgress = false;
 
-process.on('SIGTERM', () => {
-  console.log('\n🛑 Received SIGTERM, shutting down gracefully...');
+function gracefulShutdown(signal) {
+  if (shutdownInProgress) {
+    console.log(`🛑 Already shutting down, ignoring ${signal}`);
+    return;
+  }
+  
+  shutdownInProgress = true;
+  console.log(`\n🛑 Received ${signal}, shutting down gracefully...`);
+  console.log(`📊 Process info: PID=${process.pid}, uptime=${process.uptime()}s`);
+  
   cleanupWatcher();
-  process.exit(0);
-});
+  
+  // Give the process a moment to cleanup, then exit
+  setTimeout(() => {
+    console.log('🏁 Backend shutdown complete');
+    process.exit(0);
+  }, 100);
+}
+
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 
 // Load config into memory
 async function loadConfig() {
@@ -546,7 +584,7 @@ app.get('/api/quotes/random', async (req, res) => {
 const { spawn } = require('child_process');
 
 // Persistent job storage
-const JOBS_FILE_PATH = path.join(__dirname, '../data/active_jobs.json');
+const JOBS_FILE_PATH = path.join(DATA_DIR, 'active_jobs.json');
 let activeJobs = new Map();
 
 // Load jobs from persistent storage

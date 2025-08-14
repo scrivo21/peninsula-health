@@ -2,7 +2,8 @@
   "name": "peninsula-health-shift-happens",
   "version": "2.0.0",
   "description": "Peninsula Health Shift Management System - Full Stack Application",
-  "main": "index.js",
+  "main": "main.js",
+  "homepage": "./",
   "scripts": {
     "test": "./run-all-tests.sh",
     "test:backend": "cd backend && npm test",
@@ -10,9 +11,18 @@
     "test:e2e": "node e2e-tests.js",
     "test:watch": "cd backend && npm run test:watch",
     "start:backend": "cd backend && npm start",
-    "start:frontend": "cd frontend && npm start",
+    "start:frontend": "cd frontend && PORT=3002 npm start",
     "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
-    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "electron": "electron .",
+    "electron:dev": "concurrently \"PORT=3002 npm run start:frontend\" \"wait-on http://localhost:3002 && electron .\"",
+    "build:frontend": "cd frontend && npm run build",
+    "build:electron": "npm run build:frontend && electron-builder",
+    "build:all": "npm run build:frontend && electron-builder --publish=never",
+    "build:windows": "npm run build:frontend && electron-builder --win --publish=never",
+    "build:linux": "npm run build:frontend && electron-builder --linux --publish=never",
+    "build:cross-platform": "npm run build:frontend && electron-builder --mac --win --linux --publish=never",
+    "dist": "npm run build:frontend && electron-builder --publish=never"
   },
   "keywords": [
     "healthcare",
@@ -25,6 +35,92 @@
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^7.6.0",
-    "puppeteer": "^24.16.0"
+    "electron": "^37.2.6",
+    "electron-builder": "^26.0.12",
+    "puppeteer": "^24.16.0",
+    "wait-on": "^8.0.4"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "chokidar": "^4.0.3",
+    "cors": "^2.8.5",
+    "electron-is-dev": "^3.0.1",
+    "express": "^4.18.2",
+    "fs-extra": "^11.3.1",
+    "html-pdf-node": "^1.0.8",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
+    "nodemailer": "^7.0.5",
+    "pdfkit": "^0.17.1",
+    "puppeteer": "^24.16.0",
+    "uuid": "^11.1.0"
+  },
+  "build": {
+    "appId": "com.peninsula-health.shift-happens",
+    "productName": "Peninsula Health Shift Happens",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "main.js",
+      "backend/**/*",
+      "frontend/build/**/*",
+      "node_modules/**/*"
+    ],
+    "asarUnpack": [
+      "backend/**/*",
+      "node_modules/**/*"
+    ],
+    "extraFiles": [
+      {
+        "from": "backend/data",
+        "to": "resources/data"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.healthcare-fitness",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "extendInfo": {
+        "NSSupportsAutomaticTermination": false,
+        "NSSupportsSuddenTermination": false,
+        "LSUIElement": false
+      }
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Office"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   }
 }

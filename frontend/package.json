@@ -2,6 +2,7 @@
   "name": "shift-happens-frontend",
   "version": "1.0.0",
   "description": "Shift Happens - Peninsula Health Roster Management System Frontend",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "@types/node": "^18.15.0",

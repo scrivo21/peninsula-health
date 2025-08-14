@@ -1,8 +1,11 @@
-# Peninsula Health - Shift Happens 🏥
+# Peninsula Health - Shift Happens v2.0
 
-**Advanced Hospital Scheduling System v2.0**
+![Peninsula Health Logo](https://img.shields.io/badge/Peninsula%20Health-Shift%20Happens-00A8A8?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-2.0.0-blue?style=for-the-badge)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=for-the-badge)
+![License](https://img.shields.io/badge/license-Proprietary-red?style=for-the-badge)
 
-> A comprehensive, intelligent roster management platform designed specifically for Peninsula Health's Emergency Department operations across Frankston and Rosebud hospitals.
+**Advanced Hospital Scheduling System** - A comprehensive desktop application for managing medical staff schedules, doctor assignments, and shift optimization at Peninsula Health.
 
 ## 🎯 System Overview
 
@@ -26,11 +29,39 @@ Peninsula Health's Shift Happens is a production-ready hospital roster generatio
 
 ## 🏃‍♂️ Quick Start
 
-### Prerequisites
+### 🖥️ Desktop Application (Recommended)
+
+**For End Users**: Download the pre-built desktop application:
+
+1. **macOS Users**:
+   - Intel Macs: Download `Peninsula Health Shift Happens-2.0.0.dmg`
+   - Apple Silicon Macs: Download `Peninsula Health Shift Happens-2.0.0-arm64.dmg`
+   - Double-click to install and launch
+
+2. **Windows Users**: Download `Peninsula Health Shift Happens Setup 2.0.0.exe`
+   - Run the installer and follow the setup wizard
+   - Launch from Start Menu or Desktop shortcut
+
+3. **Linux Users**: Download `Peninsula Health Shift Happens-2.0.0.AppImage`
+   - Make executable: `chmod +x "Peninsula Health Shift Happens-2.0.0.AppImage"`
+   - Run directly: `./Peninsula\ Health\ Shift\ Happens-2.0.0.AppImage`
+
+**Benefits**:
+- ✅ No technical setup required
+- ✅ Self-contained with all dependencies
+- ✅ Local data storage
+- ✅ Works offline
+- ✅ Native desktop experience
+
+### 🔧 Development Setup
+
+**For Developers**: Run from source code
+
+#### Prerequisites
 - Node.js 16+ and npm
 - Python 3.8+ with required packages
 
-### Installation & Setup
+#### Installation & Setup
 
 ```bash
 # 1. Clone and setup backend
@@ -44,11 +75,23 @@ npm install
 npm start
 
 # 3. Access the application
-open http://localhost:3000
+open http://localhost:3002
+```
+
+#### Desktop Development
+```bash
+# Install all dependencies
+npm run install:all
+
+# Run in Electron development mode
+npm run electron:dev
+
+# Build desktop distributions
+npm run build:all
 ```
 
 The system will be running on:
-- **Frontend**: http://localhost:3000
+- **Frontend**: http://localhost:3002 (changed from 3000 to avoid Metabase conflict)
 - **Backend API**: http://localhost:3001
 - **Health Check**: http://localhost:3001/api/health
 
