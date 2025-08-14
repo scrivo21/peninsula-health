@@ -90,7 +90,8 @@ export const RosterGeneratorModal: React.FC<RosterGeneratorModalProps> = ({
       }
 
       // Handle both possible response formats (wrapped in data or direct)
-      const jobId = generateResponse.data?.jobId || (generateResponse as any).jobId;
+      // Backend returns job_id (snake_case), frontend uses jobId (camelCase)
+      const jobId = generateResponse.data?.job_id || generateResponse.data?.jobId || (generateResponse as any).job_id || (generateResponse as any).jobId;
       const statistics = generateResponse.data?.statistics || (generateResponse as any).statistics;
       
       if (!jobId) {
