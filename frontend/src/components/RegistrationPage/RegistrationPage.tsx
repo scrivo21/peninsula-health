@@ -37,7 +37,10 @@ export const RegistrationPage: React.FC = () => {
 
       setFormData(prev => ({
         ...prev,
-        [field]: typeof value === 'string' ? sanitizeInput(value) : value,
+        // For fullName, preserve spaces but still remove dangerous characters
+        [field]: typeof value === 'string' 
+          ? (field === 'fullName' ? value.replace(/[<>]/g, '') : sanitizeInput(value))
+          : value,
       }));
     };
   }, [errors]);

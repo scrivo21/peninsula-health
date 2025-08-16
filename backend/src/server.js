@@ -769,78 +769,58 @@ app.post('/api/roster/generate', async (req, res) => {
     const doctorCount = Object.keys(configCache.DOCTORS || {}).filter(key => !key.startsWith('_')).length;
     console.log(`✅ Config refreshed for roster generation - ${doctorCount} doctors loaded`);
     
-    // Call Python roster generator
-    const pythonProcess = spawn('python3', [
-      path.join(__dirname, 'roster_generator.py'),
-      CONFIG_FILE_PATH,
-      weeks.toString(),
-      startDateStr
-    ]);
+    // Use JavaScript roster generator (works in packaged Electron app)
+    const { RosterGenerator } = require('./roster_generator.js');
     
-    let output = '';
-    let errorOutput = '';
-    
-    pythonProcess.stdout.on('data', (data) => {
-      output += data.toString();
-    });
-    
-    pythonProcess.stderr.on('data', (data) => {
-      errorOutput += data.toString();
-    });
-    
-    pythonProcess.on('close', (code) => {
-      if (code !== 0) {
-        console.error('Python process error:', errorOutput);
+    try {
+      console.log('🔄 Starting roster generation with JavaScript implementation...');
+      
+      // Generate roster using JavaScript implementation
+      const generator = new RosterGenerator(configCache, weeks, startDateStr);
+      const result = generator.generate();
+      
+      console.log('✅ Roster generated successfully with JavaScript');
+      
+      if (!result.success) {
         return res.status(500).json({
           success: false,
           error: 'Roster generation failed',
-          details: errorOutput
+          details: result.error
         });
       }
       
-      try {
-        const result = JSON.parse(output);
-        
-        if (!result.success) {
-          return res.status(500).json({
-            success: false,
-            error: 'Roster generation failed',
-            details: result.error
-          });
+      // Store job results with persistence
+      // Also store original assignments for change tracking
+      const originalAssignments = parseAssignmentsFromCalendarView(result.outputs.calendar_view);
+      
+      addJob(jobId, {
+        jobId,
+        createdAt: new Date().toISOString(),
+        startDate: startDateStr,
+        weeks,
+        outputs: result.outputs,
+        statistics: result.statistics,
+        originalAssignments: originalAssignments,  // Store original state
+        modifiedShifts: []  // Track which shifts have been modified (as array for JSON serialization)
+      });
+      
+      res.json({
+        success: true,
+        data: {
+          job_id: jobId,
+          message: `Roster generated successfully for ${weeks} weeks starting ${startDateStr}`,
+          statistics: result.statistics
         }
-        
-        // Store job results with persistence
-        // Also store original assignments for change tracking
-        const originalAssignments = parseAssignmentsFromCalendarView(result.outputs.calendar_view);
-        
-        addJob(jobId, {
-          jobId,
-          createdAt: new Date().toISOString(),
-          startDate: startDateStr,
-          weeks,
-          outputs: result.outputs,
-          statistics: result.statistics,
-          originalAssignments: originalAssignments,  // Store original state
-          modifiedShifts: []  // Track which shifts have been modified (as array for JSON serialization)
-        });
-        
-        res.json({
-          success: true,
-          data: {
-            job_id: jobId,
-            message: `Roster generated successfully for ${weeks} weeks starting ${startDateStr}`,
-            statistics: result.statistics
-          }
-        });
-        
-      } catch (parseError) {
-        console.error('Failed to parse Python output:', parseError);
-        return res.status(500).json({
-          success: false,
-          error: 'Failed to parse roster generation results'
-        });
-      }
-    });
+      });
+      
+    } catch (error) {
+      console.error('Failed to generate roster:', error);
+      return res.status(500).json({
+        success: false,
+        error: 'Failed to generate roster',
+        details: error.message
+      });
+    }
     
   } catch (error) {
     console.error('Error generating roster:', error);
